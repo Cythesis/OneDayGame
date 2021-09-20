@@ -4,65 +4,61 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 10f;
-    private bool colliding_ = false;
-    public Vector2 maxVelocity = new Vector2(5, 20);
-    public float jumpHeight = 100f;
-    private bool collide;
+    public float speed = 4f;
+    public Vector2 maxVelocity = new Vector2(3, 5);
+    public int doubleJumpCorrectionFactor = 50;
+    public float jumpHeight = 200f;
+    private int jumpToken = 0;
     private Rigidbody2D body2D;
     private SpriteRenderer renderer2D;
-    private CircleCollider2D collider2D;
+    private CircleCollider2D collide2D;
+
+    // ASSISSTIVE FUNCTIONS
+    void KeyboardBehaviour()
+    {
+        if (Input.GetKey("right"))
+        {
+            if (Mathf.Abs(body2D.velocity.x) < maxVelocity.x)
+            {
+                body2D.AddForce(new Vector2(speed, 0));
+            }
+            renderer2D.flipX = false;
+        }
+        if (Input.GetKey("left"))
+        {
+            if (Mathf.Abs(body2D.velocity.x) < maxVelocity.x)
+            {
+                body2D.AddForce(new Vector2(-speed, 0));
+            }
+            renderer2D.flipX = true;
+        }
+        if ((Input.GetKeyDown("space") || Input.GetKeyDown("up")) && jumpToken > 0)
+        {
+            jumpToken -= 1;
+            if (Mathf.Abs(body2D.velocity.y) < maxVelocity.y)
+            {
+                body2D.AddForce(new Vector2(0, jumpHeight - body2D.velocity.y * doubleJumpCorrectionFactor));
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         body2D = GetComponent<Rigidbody2D>();
         renderer2D = GetComponent<SpriteRenderer>();
-        collider2D = GetComponent<CircleCollider2D>();
+        collide2D = GetComponent<CircleCollider2D>();
     }
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        colliding_ = true;
-        var absVelY = Mathf.Abs(body2D.velocity.y);
-        if (Input.GetKeyDown("space") || Input.GetKeyDown("up"))
-        {
-            body2D.AddForce(new Vector2(0, jumpHeight));
-        }
-        
+        jumpToken = 1;        
     }
 
     // Update is called once per frame
     void Update()
     {
-        var absVelX = Mathf.Abs(body2D.velocity.x);
-        var absVelY = Mathf.Abs(body2D.velocity.y);
-        var forceX = 0f;
+        KeyboardBehaviour();
         
-
-        if (Input.GetKey("right"))
-        {
-            if (absVelX < maxVelocity.x)
-            {
-                forceX = speed;
-            }
-            renderer2D.flipX = false;
-        } else if (Input.GetKey("left")) 
-        {
-            if (absVelX < maxVelocity.x)
-            {
-                forceX = -speed;
-            }
-            renderer2D.flipX = true;
-        }  else if (Input.GetKeyDown("space") || Input.GetKeyDown("up") && colliding_ == true) 
-        {
-            colliding_ = false;
-            if (absVelY < maxVelocity.y)
-            {
-                body2D.AddForce(new Vector2(0, jumpHeight - body2D.velocity.y));
-            }
-        }
-
-        body2D.AddForce(new Vector2(forceX, 0));
     }
 }

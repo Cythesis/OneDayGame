@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -149,6 +150,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a772424adb5f7fe4794ebc07cd18d15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1476056962}
+  scale: 180
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -575,7 +590,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.05}
+  m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
   m_Radius: 0.2
 --- !u!114 &1476056967
@@ -590,9 +605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 043df6f8d3998b14faa0938f2daf8d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  maxVelocity: {x: 3, y: 6}
-  jumpHeight: 100
+  speed: 4
+  maxVelocity: {x: 3, y: 5}
+  doubleJumpCorrectionFactor: 50
+  jumpHeight: 200
 --- !u!1 &1542260619
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,6 +1161,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 360708235703098332, guid: 51f0cc53d8716ec4aafb7217bbf1520f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2dbfd2cfed6aa024cb2d6b37c3505a88, type: 3}
     - target: {fileID: 5036045234756775219, guid: 51f0cc53d8716ec4aafb7217bbf1520f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1155,6 +1175,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7590575018954300912, guid: 51f0cc53d8716ec4aafb7217bbf1520f, type: 3}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590575018954300912, guid: 51f0cc53d8716ec4aafb7217bbf1520f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7590575018954300912, guid: 51f0cc53d8716ec4aafb7217bbf1520f, type: 3}
+      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7590575018954300912, guid: 51f0cc53d8716ec4aafb7217bbf1520f, type: 3}
